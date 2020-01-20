@@ -1,0 +1,7 @@
+Temp/
+.vs/
+Library/
+Logs/
+obj/
+Assembly-CSharp.csproj
+Bowling.sln
