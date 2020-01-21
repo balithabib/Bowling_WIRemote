@@ -1,12 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using WiimoteApi;
 
 public class Ball : MonoBehaviour
 {
-
+    private Vector3 POSITION_INIT;
     public float speed;
     private Rigidbody rigidBody;
     private bool thrown = false;
@@ -27,6 +26,7 @@ public class Ball : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        POSITION_INIT = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -79,6 +79,7 @@ public class Ball : MonoBehaviour
                     transform.position = position;
                 }
             }
+           
             // goal
             if (!thrown && wiimote.Button.b)
             {
@@ -86,6 +87,7 @@ public class Ball : MonoBehaviour
                 rigidBody.isKinematic = false;
                 rigidBody.velocity = new Vector3(0, 0, speed);
             }
+            
             // plus and minus  speed
             if (wiimote.Button.plus)
             {
@@ -96,6 +98,7 @@ public class Ball : MonoBehaviour
             {
                 speed = (--speed < 10) ? 10 : speed;
             }
+
             // change of terrain
             if (wiimote.Button.d_up)
             {
@@ -119,12 +122,9 @@ public class Ball : MonoBehaviour
         }
     }
 
-
-    void OnTriggerEnter(Collider other)
+    public void Reset(object _ball)
     {
-        if (other.gameObject.CompareTag("Body1"))
-        {
-            other.gameObject.SetActive(false);
-        }
+        rigidBody.isKinematic = true;
+        rigidBody.velocity = Vector3.zero;
     }
 }

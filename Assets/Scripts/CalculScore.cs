@@ -63,6 +63,7 @@ public class CalculScore : MonoBehaviour
     public void UpdateScore(object ball)
     {
         _Down = getDownPins();
+        Debug.Log("Down : " + _Down);
         BowlingFrame bf = Frames[Frames.Count - 1].AddScore(_FrameBall, _Down);
         _FrameBall += 1;
         if (bf != null)
